@@ -2,9 +2,12 @@
 # promptwars-antigravity-app
 A functional application built for the PromptWars Virtual hackathon using intent-driven development and Google Antigravity. Includes technical documentation and build-in-public insights.
 =======
+
+#> **"myevent.io  This project is Under development this myevents.io 0.1 version please stay tunded for the next development."**
+
+
 # MyEvent.io — Smart Event Discovery Platform
 
-> **"myevent.io  This project is Under development this myevents.io 0.1 version please stay tunded for the next development."**
 
 > **"myevent.io learns from your bookmarks and automatically finds relevant free, in-person events in Bangalore — then notifies you."**
 
