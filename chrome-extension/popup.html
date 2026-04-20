@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>MyEvent.io — Smart Event Scanner</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="popup.css" />
+</head>
+<body>
+  <div id="app">
+
+    <!-- ══════════════ AUTH SCREEN ══════════════ -->
+    <div id="screen-auth" class="screen active">
+      <div class="auth-header">
+        <div class="logo-mark">
+          <svg viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect width="36" height="36" rx="10" fill="url(#grad1)"/>
+            <path d="M10 18a8 8 0 0 1 16 0" stroke="#fff" stroke-width="2.5" stroke-linecap="round"/>
+            <circle cx="18" cy="22" r="4" fill="#fff"/>
+            <path d="M14 12l4-4 4 4" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            <defs>
+              <linearGradient id="grad1" x1="0" y1="0" x2="36" y2="36" gradientUnits="userSpaceOnUse">
+                <stop stop-color="#6C63FF"/>
+                <stop offset="1" stop-color="#3B82F6"/>
+              </linearGradient>
+            </defs>
+          </svg>
+        </div>
+        <h1 class="brand-name">MyEvent<span>.io</span></h1>
+        <p class="brand-tagline">Smart event discovery for Bangalore</p>
+      </div>
+
+      <!-- Tab toggle -->
+      <div class="auth-tabs">
+        <button class="auth-tab active" id="tab-login-btn" data-auth="login">Sign In</button>
+        <button class="auth-tab" id="tab-signup-btn" data-auth="signup">Create Account</button>
+      </div>
+
+      <!-- Login Form -->
+      <form id="form-login" class="auth-form" autocomplete="on">
+        <div class="field-group">
+          <label for="login-email">Email</label>
+          <input type="email" id="login-email" placeholder="you@example.com" autocomplete="email" required />
+        </div>
+        <div class="field-group">
+          <label for="login-password">Password</label>
+          <input type="password" id="login-password" placeholder="••••••••" autocomplete="current-password" required />
+        </div>
+        <div id="login-error" class="form-error" style="display:none;"></div>
+        <button type="submit" class="btn-primary" id="btn-login">
+          <span class="btn-label">Sign In</span>
+          <span class="btn-spinner" style="display:none;"></span>
+        </button>
+      </form>
+
+      <!-- Signup Form -->
+      <form id="form-signup" class="auth-form" style="display:none;" autocomplete="on">
+        <div class="field-group">
+          <label for="signup-name">Full Name</label>
+          <input type="text" id="signup-name" placeholder="Ravi Kumar" autocomplete="name" required />
+        </div>
+        <div class="field-group">
+          <label for="signup-email">Email</label>
+          <input type="email" id="signup-email" placeholder="you@example.com" autocomplete="email" required />
+        </div>
+        <div class="field-group">
+          <label for="signup-password">Password</label>
+          <input type="password" id="signup-password" placeholder="Min 8 characters" autocomplete="new-password" required minlength="8" />
+        </div>
+        <div id="signup-error" class="form-error" style="display:none;"></div>
+        <button type="submit" class="btn-primary" id="btn-signup">
+          <span class="btn-label">Create Account</span>
+          <span class="btn-spinner" style="display:none;"></span>
+        </button>
+      </form>
+    </div>
+
+    <!-- ══════════════ MAIN APP ══════════════ -->
+    <div id="screen-main" class="screen" style="display:none;">
+
+      <!-- Header -->
+      <header class="app-header">
+        <div class="app-header__brand">
+          <div class="logo-mark-sm">
+            <svg viewBox="0 0 24 24" fill="none">
+              <rect width="24" height="24" rx="7" fill="url(#g2)"/>
+              <circle cx="12" cy="14" r="3" fill="#fff"/>
+              <path d="M8 10a4 4 0 0 1 8 0" stroke="#fff" stroke-width="1.8" stroke-linecap="round"/>
+              <defs><linearGradient id="g2" x1="0" y1="0" x2="24" y2="24"><stop stop-color="#6C63FF"/><stop offset="1" stop-color="#3B82F6"/></linearGradient></defs>
+            </svg>
+          </div>
+          <span class="app-header__title">MyEvent<span>.io</span></span>
+        </div>
+        <div class="app-header__actions">
+          <button class="icon-btn" id="btn-open-dashboard" title="Open Dashboard">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/>
+              <rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/>
+            </svg>
+          </button>
+          <button class="icon-btn" id="btn-logout" title="Sign out">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M9 21H5a2 2 0 01-2-2V5a2 2 0 012-2h4"/>
+              <polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/>
+            </svg>
+          </button>
+        </div>
+      </header>
+
+      <!-- Tab Nav -->
+      <nav class="main-tabs" role="tablist">
+        <button class="main-tab active" data-tab="events" id="mtab-events">
+          <svg viewBox="0 0 20 20" fill="currentColor"><path d="M6 2a1 1 0 0 0-1 1v1H4a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2h-1V3a1 1 0 1 0-2 0v1H7V3a1 1 0 0 0-1-1z"/></svg>
+          Events
+        </button>
+        <button class="main-tab" data-tab="bookmarks" id="mtab-bookmarks">
+          <svg viewBox="0 0 20 20" fill="currentColor"><path d="M5 4a2 2 0 0 1 2-2h6a2 2 0 0 1 2 2v14l-5-2.5L5 18V4z"/></svg>
+          Sources
+        </button>
+        <button class="main-tab" data-tab="anomalies" id="mtab-anomalies">
+          <svg viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.213 2.98-1.742 2.98H4.42c-1.53 0-2.493-1.646-1.743-2.98l5.58-9.92zM11 13a1 1 0 1 1-2 0 1 1 0 0 1 2 0zm-1-8a1 1 0 0 0-1 1v3a1 1 0 0 0 2 0V6a1 1 0 0 0-1-1z" clip-rule="evenodd"/></svg>
+          Anomalies
+          <span class="badge" id="anomaly-badge" style="display:none;">0</span>
+        </button>
+        <button class="main-tab" data-tab="settings" id="mtab-settings">
+          <svg viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M11.49 3.17c-.38-1.56-2.6-1.56-2.98 0a1.532 1.532 0 01-2.286.948c-1.372-.836-2.942.734-2.106 2.106.54.886.061 2.042-.947 2.287-1.561.379-1.561 2.6 0 2.978a1.532 1.532 0 01.947 2.287c-.836 1.372.734 2.942 2.106 2.106a1.532 1.532 0 012.287.947c.379 1.561 2.6 1.561 2.978 0a1.533 1.533 0 012.287-.947c1.372.836 2.942-.734 2.106-2.106a1.533 1.533 0 01.947-2.287c1.561-.379 1.561-2.6 0-2.978a1.532 1.532 0 01-.947-2.287c.836-1.372-.734-2.942-2.106-2.106a1.532 1.532 0 01-2.287-.947zM10 13a3 3 0 100-6 3 3 0 000 6z" clip-rule="evenodd"/></svg>
+          Settings
+        </button>
+      </nav>
+
+      <!-- ── EVENTS TAB ─────────────────────────────── -->
+      <section id="tab-events" class="tab-panel active">
+        <!-- Stats row -->
+        <div class="stats-row">
+          <div class="stat-card">
+            <span class="stat-value" id="stat-matched">0</span>
+            <span class="stat-label">Matched</span>
+          </div>
+          <div class="stat-card">
+            <span class="stat-value" id="stat-total">0</span>
+            <span class="stat-label">Scanned</span>
+          </div>
+          <div class="stat-card">
+            <span class="stat-value" id="stat-sources">0</span>
+            <span class="stat-label">Sources</span>
+          </div>
+        </div>
+
+        <!-- Last scan -->
+        <div class="section-meta">
+          <span id="last-scan-label">Last scan: Never</span>
+          <button class="btn-scan" id="btn-scan-now">
+            <svg viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M4 2a1 1 0 011 1v2.101a7.002 7.002 0 0111.601 2.566 1 1 0 11-1.885.666A5.002 5.002 0 005.999 7H9a1 1 0 010 2H4a1 1 0 01-1-1V3a1 1 0 011-1zm.008 9.057a1 1 0 011.276.61A5.002 5.002 0 0014.001 13H11a1 1 0 110-2h5a1 1 0 011 1v5a1 1 0 11-2 0v-2.101a7.002 7.002 0 01-11.601-2.566 1 1 0 01.61-1.276z" clip-rule="evenodd"/></svg>
+            Scan Now
+          </button>
+        </div>
+
+        <!-- Matched events list -->
+        <div class="section-title">Matched Events</div>
+        <div id="events-list" class="events-list">
+          <!-- injected by JS -->
+        </div>
+        <div id="events-empty" class="empty-state" style="display:none;">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+            <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/>
+          </svg>
+          <p>No matched events yet.<br/>Run a scan to find events.</p>
+        </div>
+        <div id="events-loading" class="loading-pulse">
+          <div class="pulse-bar"></div><div class="pulse-bar"></div><div class="pulse-bar"></div>
+        </div>
+      </section>
+
+      <!-- ── BOOKMARKS / SOURCES TAB ─────────────────── -->
+      <section id="tab-bookmarks" class="tab-panel">
+        <div class="sources-header">
+          <div class="search-wrap">
+            <svg viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z" clip-rule="evenodd"/></svg>
+            <input type="text" id="bookmark-search" placeholder="Search bookmarks…" autocomplete="off" />
+          </div>
+          <div class="sources-meta">
+            <span id="sources-count-label">0 sources selected</span>
+            <button class="btn-load-bookmarks" id="btn-load-bookmarks">Load Bookmarks</button>
+          </div>
+        </div>
+
+        <div id="bookmarks-list" class="bookmarks-list">
+          <!-- injected by JS -->
+        </div>
+        <div id="bookmarks-empty" class="empty-state" style="display:none;">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+            <path d="M19 21l-7-5-7 5V5a2 2 0 012-2h10a2 2 0 012 2z"/>
+          </svg>
+          <p>No bookmarks found.<br/>Click "Load Bookmarks" to begin.</p>
+        </div>
+        <div id="bookmarks-loading" class="loading-pulse" style="display:none;">
+          <div class="pulse-bar"></div><div class="pulse-bar"></div><div class="pulse-bar"></div>
+        </div>
+        <button class="btn-primary btn-save-sources" id="btn-save-sources" style="display:none;">
+          Save Selected Sources
+        </button>
+      </section>
+
+      <!-- ── ANOMALIES TAB ──────────────────────────── -->
+      <section id="tab-anomalies" class="tab-panel">
+        <div class="section-title">URL Typo Detections</div>
+        <div id="anomalies-list" class="anomalies-list">
+          <!-- injected by JS -->
+        </div>
+        <div id="anomalies-empty" class="empty-state" style="display:none;">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+            <path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/>
+            <line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/>
+          </svg>
+          <p>No typos detected yet.<br/>They appear here when you visit malformed URLs.</p>
+        </div>
+        <div id="anomalies-loading" class="loading-pulse" style="display:none;">
+          <div class="pulse-bar"></div><div class="pulse-bar"></div>
+        </div>
+      </section>
+
+      <!-- ── SETTINGS TAB ───────────────────────────── -->
+      <section id="tab-settings" class="tab-panel">
+        <div class="settings-group">
+          <div class="settings-group-title">Event Criteria</div>
+          <div class="field-group">
+            <label for="crit-location">Location</label>
+            <input type="text" id="crit-location" value="Bangalore" />
+          </div>
+          <div class="field-group">
+            <label for="crit-type">Event Type</label>
+            <select id="crit-type">
+              <option value="In-Person">In-Person</option>
+              <option value="Online/Virtual">Online/Virtual</option>
+              <option value="Any">Any</option>
+            </select>
+          </div>
+          <div class="field-group">
+            <label for="crit-cost">Cost</label>
+            <select id="crit-cost">
+              <option value="Free">Free</option>
+              <option value="Paid">Paid</option>
+              <option value="Any">Any</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="settings-group">
+          <div class="settings-group-title">Scan Schedule</div>
+          <div class="field-group">
+            <label for="scan-time">Daily Scan Time</label>
+            <input type="time" id="scan-time" value="08:00" />
+          </div>
+        </div>
+
+        <div class="settings-group">
+          <div class="settings-group-title">URL Watcher</div>
+          <div class="toggle-row">
+            <span>Auto-redirect on typo</span>
+            <label class="toggle-switch">
+              <input type="checkbox" id="toggle-redirect" checked />
+              <span class="toggle-thumb"></span>
+            </label>
+          </div>
+        </div>
+
+        <div class="settings-group">
+          <div class="settings-group-title">Account</div>
+          <div class="account-info">
+            <div class="account-avatar" id="account-avatar">R</div>
+            <div>
+              <div class="account-name" id="account-name">User</div>
+              <div class="account-email" id="account-email">user@example.com</div>
+            </div>
+          </div>
+        </div>
+
+        <button class="btn-primary" id="btn-save-settings">Save Settings</button>
+        <div id="settings-saved" class="success-msg" style="display:none;">✓ Settings saved</div>
+      </section>
+
+    </div><!-- /#screen-main -->
+
+  </div><!-- /#app -->
+
+  <script src="popup.js" type="module"></script>
+</body>
+</html>
