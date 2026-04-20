@@ -1,3 +1,9 @@
+<img width="1600" height="1004" alt="Screenshot 2026-04-20 at 8 25 35 PM" src="https://github.com/user-attachments/assets/c8ccfc0c-ea5d-45c3-99b4-f5af3c28eb05" />
+<img width="1600" height="1004" alt="Screenshot 2026-04-20 at 10 24 16 PM" src="https://github.com/user-attachments/assets/38980167-faaf-40b6-846c-c09c037bd80a" />
+<img width="1600" height="1004" alt="Screenshot 2026-04-20 at 10 24 16 PM (1)" src="https://github.com/user-attachments/assets/73647e65-d24c-495b-9079-5df5eeac6d7c" />
+<img width="1600" height="1004" alt="Screenshot 2026-04-20 at 10 24 16 PM (2)" src="https://github.com/user-attachments/assets/25056b11-cd0f-4d29-91ac-41e7eb350542" />
+<img width="1600" height="1004" alt="Screenshot 2026-04-20 at 10 24 16 PM (3)" src="https://github.com/user-attachments/assets/daf31e50-c4cd-4dbd-83ff-c183ad045cc8" />
+<img width="1600" height="1004" alt="Screenshot 2026-04-20 at 10 24 16 PM (4)" src="https://github.com/user-attachments/assets/7a226671-e158-49f1-8efd-a12d2880160b" />
 
 # promptwars-antigravity-app
 A functional application built for the PromptWars Virtual hackathon using intent-driven development and Google Antigravity. Includes technical documentation and build-in-public insights.
