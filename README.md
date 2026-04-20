@@ -4,6 +4,8 @@ A functional application built for the PromptWars Virtual hackathon using intent
 =======
 # MyEvent.io — Smart Event Discovery Platform
 
+> **"myevent.io  This project is Under development this myevents.io 0.1 version please stay tunded for the next development."**
+
 > **"myevent.io learns from your bookmarks and automatically finds relevant free, in-person events in Bangalore — then notifies you."**
 
 A full-stack, production-ready Chrome Extension + Web Dashboard + Node.js Backend for intelligent event discovery, URL anomaly detection, and daily automated scanning.
